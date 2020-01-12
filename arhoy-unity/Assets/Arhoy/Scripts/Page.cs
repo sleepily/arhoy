@@ -14,13 +14,18 @@ public class Page : MonoBehaviour
     public void Found()
     {
         // Display scenery
-
         SetChildActive(true);
 
+        // Notify AR Scene Manager
         // Allow implementation of characters
-
+        GameManager.GM.ARSceneManager.GainFocus(this);
 
         // Play sounds
+    }
+
+    public void PlayCharacter(CharacterFile characterFile)
+    {
+        GameObject.Find(characterFile.Name).gameObject.SetActive(true);
     }
 
     public void Lost()

@@ -5,42 +5,49 @@ using UnityEngine;
 public class ARSceneManager : MonoBehaviour
 {
     [SerializeField] bool restoreAfterLostFocus = true;
-    [SerializeField] int currentPageIndex = -1;
-    int lastPageIndex = -1;
-    [SerializeField] int activeCharacterIndex = -1;
-    int lastCharacterIndex = -1;
-    bool hasFocus = false;
+    [SerializeField] Page currentPage = null;
+    Page lastPage = null;
+    [SerializeField] CharacterFile activeCharacter = null;
+    CharacterFile lastCharacter = null;
+    public bool hasFocus { get; private set; } = false;
     
     public void GainFocus(Page page)
     {
         hasFocus = true;
-        currentPageIndex = page.Number;
+        currentPage = page;
 
         if (restoreAfterLostFocus)
-            if (lastPageIndex == currentPageIndex)
+            if (lastPage == currentPage)
             {
-                lastCharacterIndex = activeCharacterIndex;
+                lastCharacter = activeCharacter;
                 ContinueScene();
                 return;
             }
 
+        StartScene();
+
         if (restoreAfterLostFocus)
         {
-            lastPageIndex = currentPageIndex;
-            lastCharacterIndex = activeCharacterIndex;
+            lastPage = currentPage;
+            lastCharacter = activeCharacter;
         }
     }
 
     public void LoseFocus()
     {
         hasFocus = false;
-        currentPageIndex = -1;
+        currentPage = null;
     }
 
     public void ActivateCharacter(CharacterFile characterFile)
     {
         if (!hasFocus)
             return;
+
+        if (!currentPage)
+            return;
+
+        currentPage.PlayCharacter(characterFile);
     }
 
     void StartScene()
