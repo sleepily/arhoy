@@ -1,13 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterButton : MonoBehaviour
 {
-    [SerializeField] CharacterFile character;
+    [SerializeField] CharacterFile characterFile;
+    [SerializeField] public Button button { get; private set; }
 
-    public void SendCharacterToManager()
+    private void Start()
     {
-        GameManager.GM.ARSceneManager.ActivateCharacter(character);
+        button = GetComponent<Button>();
+    }
+
+    public void Pressed()
+    {
+        if (!GameManager.GM.isPlaytest)
+            if (!GameManager.GM.ARSceneManager.hasFocus)
+                return;
+
+        GameManager.GM.ARSceneManager.PlayCharacter(characterFile);
     }
 }

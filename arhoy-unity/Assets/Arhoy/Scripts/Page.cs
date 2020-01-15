@@ -1,38 +1,62 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Page : MonoBehaviour
 {
     public int Number = 0;
+    List<CharacterAnimation> characters;
 
     private void Awake()
     {
-        SetChildActive(false);
+        DisplayPageScene(false);
+    }
+
+    private void Start()
+    {
+        characters = GetCharacters();
     }
 
     public void Found()
     {
         // Display scenery
-        SetChildActive(true);
+        DisplayPageScene(true);
 
         // Notify AR Scene Manager
-        // Allow implementation of characters
         GameManager.GM.ARSceneManager.GainFocus(this);
-
-        // Play sounds
     }
 
     public void PlayCharacter(CharacterFile characterFile)
     {
-        GameObject.Find(characterFile.Name).gameObject.SetActive(true);
+        foreach (CharacterAnimation c in characters)
+            if (c.gameObject.name == characterFile.Name)
+            {
+                c.gameObject.SetActive(true);
+                c.StartAnimation();
+                GameManager.GM.ARSceneManager.SetActiveCharacter(characterFile);
+                return;
+            }
     }
+
+    public void StopAndPlayCharacter(CharacterFile characterFile)
+    {
+        for (int c = 0; c < characters.Count; c++)
+            characters[c].gameObject.SetActive(false);
+
+        PlayCharacter(characterFile);
+    }
+
+    List<CharacterAnimation> GetCharacters() => GetComponentsInChildren<CharacterAnimation>().ToList();
 
     public void Lost()
     {
         // Hide scene and characters
+        DisplayPageScene(false);
+        GameManager.GM.ARSceneManager.LoseFocus();
+
         // Stop music and sounds
     }
 
-    public void SetChildActive(bool isActive) => transform.GetChild(0).gameObject.SetActive(isActive);
+    public void DisplayPageScene(bool isActive) => transform.GetChild(0).gameObject.SetActive(isActive);
 }

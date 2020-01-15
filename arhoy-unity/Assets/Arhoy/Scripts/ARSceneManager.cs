@@ -7,61 +7,63 @@ public class ARSceneManager : MonoBehaviour
     [SerializeField] bool restoreAfterLostFocus = true;
     [SerializeField] Page currentPage = null;
     Page lastPage = null;
-    [SerializeField] CharacterFile activeCharacter = null;
+    [SerializeField] CharacterFile currentCharacter = null;
     CharacterFile lastCharacter = null;
     public bool hasFocus { get; private set; } = false;
+    public bool isPlaying { get; private set; } = false;
     
     public void GainFocus(Page page)
     {
         hasFocus = true;
         currentPage = page;
 
+        /*
         if (restoreAfterLostFocus)
             if (lastPage == currentPage)
             {
                 lastCharacter = activeCharacter;
-                ContinueScene();
+                // ContinueScene();
                 return;
             }
-
-        StartScene();
 
         if (restoreAfterLostFocus)
         {
             lastPage = currentPage;
             lastCharacter = activeCharacter;
         }
+        */
     }
 
     public void LoseFocus()
     {
         hasFocus = false;
         currentPage = null;
+        currentCharacter = null;
     }
 
-    public void ActivateCharacter(CharacterFile characterFile)
+    public void PlayCharacter(CharacterFile characterFile)
     {
-        if (!hasFocus)
-            return;
+        if (!GameManager.GM.isPlaytest)
+        {
+            if (!hasFocus)
+                return;
 
-        if (!currentPage)
+            if (!currentPage)
+                return;
+        }
+
+        if (isPlaying)
+        {
+            currentPage.StopAndPlayCharacter(characterFile);
             return;
+        }
 
         currentPage.PlayCharacter(characterFile);
     }
 
-    void StartScene()
+    public void SetActiveCharacter(CharacterFile characterFile)
     {
-
-    }
-
-    void ContinueScene()
-    {
-        StartScene();
-    }
-
-    void StopScene()
-    {
-
+        currentCharacter = characterFile;
+        isPlaying = true;
     }
 }
