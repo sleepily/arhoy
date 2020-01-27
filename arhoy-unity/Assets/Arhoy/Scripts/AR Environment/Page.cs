@@ -12,13 +12,15 @@ public class Page : MonoBehaviour
     [SerializeField]
     List<CharacterFile> inaccessibleCharacters;
 
-    GameObject pageScene;
+    GameObject characterParent;
+    GameObject sceneParent;
 
     public List<CharacterFile> InaccessibleCharacters => inaccessibleCharacters;
 
     private void Awake()
     {
-        pageScene = GetPageScene();
+        GetParentObjects();
+
         DisplayPageScene(false);
     }
 
@@ -65,7 +67,13 @@ public class Page : MonoBehaviour
         PlayCharacter(characterFile);
     }
 
-    List<CharacterAnimation> GetCharacters() => GetComponentsInChildren<CharacterAnimation>().ToList();
+    List<CharacterAnimation> GetCharacters()
+    {
+        if (characterParent)
+            return characterParent.GetComponentsInChildren<CharacterAnimation>().ToList();
+
+        return new List<CharacterAnimation>();
+    }
 
     public void Lost()
     {
@@ -78,7 +86,7 @@ public class Page : MonoBehaviour
         GameManager.GM.CharacterButtonManager.SetAllButtonsInteractable(false);
     }
 
-    GameObject GetPageScene()
+    GameObject GetPageSceneParent()
     {
         foreach (var child in transform.GetComponentsInChildren<Transform>())
             if (child.CompareTag("PageScene"))
@@ -89,9 +97,21 @@ public class Page : MonoBehaviour
         return null;
     }
 
+    void GetParentObjects()
+    {
+        foreach (var child in transform.GetComponentsInChildren<Transform>())
+        {
+            if (child.CompareTag("PageScene"))
+                sceneParent = child.gameObject;
+
+            if (child.CompareTag("CharacterParent"))
+                characterParent = child.gameObject;
+        }
+    }
+
     public void DisplayPageScene(bool isActive)
     {
-        if (pageScene)
-            pageScene.SetActive(isActive);
+        if (sceneParent)
+            sceneParent.SetActive(isActive);
     }
 }
