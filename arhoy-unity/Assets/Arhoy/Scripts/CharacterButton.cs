@@ -6,7 +6,12 @@ using UnityEngine.UI;
 public class CharacterButton : MonoBehaviour
 {
     [SerializeField] CharacterFile characterFile;
-    [SerializeField] public Button button { get; private set; }
+
+    public CharacterFile CharacterFile => characterFile;
+
+    [SerializeField] Button button;
+
+    public Button Button => button;
 
     private void Start()
     {

@@ -9,11 +9,14 @@ public class GameManager : MonoBehaviour
 
     public ARSceneManager ARSceneManager;
 
+    public AudioManager AudioManager;
+
+    public CharacterButtonManager CharacterButtonManager;
+
     public bool isPlaytest = false;
 
     private void Awake()
     {
         gm = this;
     }
-
 }
