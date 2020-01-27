@@ -8,13 +8,17 @@ public class Page : MonoBehaviour
     public int Number = 0;
     List<CharacterAnimation> characters;
 
+    [Tooltip("Drag all INACCESIBLE Characters here so they cannot be selected.")]
     [SerializeField]
     List<CharacterFile> inaccessibleCharacters;
+
+    GameObject pageScene;
 
     public List<CharacterFile> InaccessibleCharacters => inaccessibleCharacters;
 
     private void Awake()
     {
+        pageScene = GetPageScene();
         DisplayPageScene(false);
     }
 
@@ -32,15 +36,22 @@ public class Page : MonoBehaviour
         GameManager.GM.ARSceneManager.GainFocus(this);
 
         GameManager.GM.CharacterButtonManager.SetAllButtonsInteractable(true);
+        DisableInaccessibleCharacters();
+    }
+
+    void DisableInaccessibleCharacters()
+    {
+        foreach (var inaccessibleCharacter in inaccessibleCharacters)
+            GameManager.GM.CharacterButtonManager.SetButtonInteractable(inaccessibleCharacter, false);
     }
 
     public void PlayCharacter(CharacterFile characterFile)
     {
-        foreach (CharacterAnimation c in characters)
-            if (c.gameObject.name == characterFile.Name)
+        foreach (CharacterAnimation characterAnimation in characters)
+            if (characterAnimation.gameObject.name == characterFile.Name)
             {
-                c.gameObject.SetActive(true);
-                c.StartAnimation();
+                characterAnimation.gameObject.SetActive(true);
+                characterAnimation.StartAnimation();
                 GameManager.GM.ARSceneManager.SetActiveCharacter(characterFile);
                 return;
             }
@@ -67,5 +78,20 @@ public class Page : MonoBehaviour
         GameManager.GM.CharacterButtonManager.SetAllButtonsInteractable(false);
     }
 
-    public void DisplayPageScene(bool isActive) => transform.GetChild(0).gameObject.SetActive(isActive);
+    GameObject GetPageScene()
+    {
+        foreach (var child in transform.GetComponentsInChildren<Transform>())
+            if (child.CompareTag("PageScene"))
+                return child.gameObject;
+
+        Debug.LogWarning($"Page Scene not found for page {Number}.");
+
+        return null;
+    }
+
+    public void DisplayPageScene(bool isActive)
+    {
+        if (pageScene)
+            pageScene.SetActive(isActive);
+    }
 }
