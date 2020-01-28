@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScreenManager : MonoBehaviour
 {
     RectTransform rectTransform;
+    [SerializeField] Image backgroundDim;
+    [SerializeField] [Range(0f, 1f)] float dimAmount;
 
     public enum Screens
     {
@@ -13,6 +16,8 @@ public class ScreenManager : MonoBehaviour
         Help,
         Credits
     }
+
+    [Space]
 
     public Screens CurrentScreen;
 
@@ -35,6 +40,7 @@ public class ScreenManager : MonoBehaviour
         rectTransform.localPosition = newPosition;
 
         GameManager.GM.ARSceneManager.AllowTracking(CurrentScreen == Screens.ARScreen);
+        backgroundDim.color = (CurrentScreen == Screens.ARScreen) ? Color.clear : Color.Lerp(Color.clear, Color.black, dimAmount);
     }
 
     public void MoveToScreen(int destination) => MoveScreens((Screens)destination);
