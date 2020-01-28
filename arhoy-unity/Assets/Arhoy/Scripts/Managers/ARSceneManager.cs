@@ -43,6 +43,8 @@ public class ARSceneManager : MonoBehaviour
 
     public void PlayCharacter(CharacterFile characterFile)
     {
+        Debug.Log($"Playing Character {characterFile.Name}...");
+
         if (!GameManager.GM.isPlaytest)
         {
             if (!hasFocus)

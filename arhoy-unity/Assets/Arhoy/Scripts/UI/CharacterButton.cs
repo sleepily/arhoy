@@ -9,7 +9,7 @@ public class CharacterButton : MonoBehaviour
 
     public CharacterFile CharacterFile => characterFile;
 
-    [SerializeField] Button button;
+    Button button;
 
     public Button Button => button;
 

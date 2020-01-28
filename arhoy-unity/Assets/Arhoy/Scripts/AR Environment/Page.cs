@@ -12,20 +12,29 @@ public class Page : MonoBehaviour
     [SerializeField]
     List<CharacterFile> inaccessibleCharacters;
 
+    [Space]
+
     GameObject characterParent;
     GameObject sceneParent;
+    GameObject tracker;
+
+    public GameObject Tracker => tracker;
 
     public List<CharacterFile> InaccessibleCharacters => inaccessibleCharacters;
+
+    [Space]
+
+    public AudioClip backgroundMusic;
 
     private void Awake()
     {
         GetParentObjects();
-
-        DisplayPageScene(false);
     }
 
     private void Start()
     {
+        DisplayPageScene(false);
+
         characters = GetCharacters();
     }
 
@@ -49,11 +58,14 @@ public class Page : MonoBehaviour
 
     public void PlayCharacter(CharacterFile characterFile)
     {
+        Debug.Log($"Finding Character {characterFile.Name} in Page {Number}...");
+
         foreach (CharacterAnimation characterAnimation in characters)
             if (characterAnimation.gameObject.name == characterFile.Name)
             {
                 characterAnimation.gameObject.SetActive(true);
                 characterAnimation.StartAnimation();
+
                 GameManager.GM.ARSceneManager.SetActiveCharacter(characterFile);
                 return;
             }
@@ -69,6 +81,9 @@ public class Page : MonoBehaviour
 
     List<CharacterAnimation> GetCharacters()
     {
+        if (!characterParent)
+            GetParentObjects();
+
         if (characterParent)
             return characterParent.GetComponentsInChildren<CharacterAnimation>().ToList();
 
@@ -106,6 +121,9 @@ public class Page : MonoBehaviour
 
             if (child.CompareTag("CharacterParent"))
                 characterParent = child.gameObject;
+
+            if (child.CompareTag("Tracker"))
+                tracker = child.gameObject;
         }
     }
 

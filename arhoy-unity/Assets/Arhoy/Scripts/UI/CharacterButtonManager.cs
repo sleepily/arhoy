@@ -15,15 +15,11 @@ public class CharacterButtonManager : MonoBehaviour
 
     void GetButtons() => characterButtons = GetComponentsInChildren<CharacterButton>().ToList();
 
-    public bool SetAllButtonsInteractable(bool isInteractable)
+    public void SetAllButtonsInteractable(bool isInteractable)
     {
         foreach (var characterButton in characterButtons)
-        {
-            characterButton.Button.interactable = isInteractable;
-            return true;
-        }
-
-        return false;
+            if (characterButton.Button)
+                characterButton.Button.interactable = isInteractable;
     }
 
     public bool SetButtonInteractable(CharacterFile character, bool isInteractable = true)
@@ -31,7 +27,12 @@ public class CharacterButtonManager : MonoBehaviour
         foreach (var characterButton in characterButtons)
             if (characterButton.CharacterFile == character)
             {
-                characterButton.Button.interactable = isInteractable;
+                if (characterButton.Button)
+                    characterButton.Button.interactable = isInteractable;
+
+
+                Debug.Log($"Setting {character}'s interactablity to {isInteractable}.");
+
                 return true;
             }
 

@@ -22,6 +22,9 @@ public class AnimationKey : MonoBehaviour
         if (!GameManager.GM.AudioManager.UseAudioClipLength)
             return;
 
+        if (!audioClip)
+            return;
+
         if (audioClip.length > time)
             time = audioClip.length;
     }

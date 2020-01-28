@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public CharacterButtonManager CharacterButtonManager;
 
+    public ScreenManager ScreenManager;
+
     public bool isPlaytest = false;
 
     private void Awake()
