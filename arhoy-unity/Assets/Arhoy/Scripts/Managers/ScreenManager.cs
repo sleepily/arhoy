@@ -28,9 +28,13 @@ public class ScreenManager : MonoBehaviour
 
     void MoveScreens(Screens destination)
     {
+        CurrentScreen = destination;
+
         Vector3 newPosition = rectTransform.localPosition;
         newPosition.x = (int)destination * ReferenceScreenWidth * -1;
         rectTransform.localPosition = newPosition;
+
+        GameManager.GM.ARSceneManager.AllowTracking(CurrentScreen == Screens.ARScreen);
     }
 
     public void MoveToScreen(int destination) => MoveScreens((Screens)destination);

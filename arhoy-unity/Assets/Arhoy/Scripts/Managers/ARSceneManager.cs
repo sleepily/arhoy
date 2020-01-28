@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ARSceneManager : MonoBehaviour
 {
+    bool allowARTracking = false;
+    public bool AllowARTracking => allowARTracking;
+
     [SerializeField] bool restoreAfterLostFocus = true;
     [SerializeField] Page currentPage = null;
     Page lastPage = null;
@@ -14,6 +17,12 @@ public class ARSceneManager : MonoBehaviour
     
     public void GainFocus(Page page)
     {
+        if (!allowARTracking)
+        {
+            LoseFocus();
+            return;
+        }
+
         hasFocus = true;
         currentPage = page;
 
@@ -39,6 +48,14 @@ public class ARSceneManager : MonoBehaviour
         hasFocus = false;
         currentPage = null;
         currentCharacter = null;
+    }
+
+    public void AllowTracking(bool isAllowed)
+    {
+        allowARTracking = isAllowed;
+
+        if (!isAllowed)
+            LoseFocus();
     }
 
     public void PlayCharacter(CharacterFile characterFile)

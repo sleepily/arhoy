@@ -40,6 +40,9 @@ public class Page : MonoBehaviour
 
     public void Found()
     {
+        if (!GameManager.GM.ARSceneManager.AllowARTracking)
+            return;
+
         // Display scenery
         DisplayPageScene(true);
 
