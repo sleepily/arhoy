@@ -20,19 +20,38 @@ public class ScreenManager : MonoBehaviour
     [Space]
 
     public Screens CurrentScreen;
+    public GameObject[] ScreenObjects;
+    public GameObject CurrentScreenObject;
 
-    [Range(100, 1400)]
-    public int ReferenceScreenWidth = 720;
+    [Range(600, 2400)]
+    public int ReferenceScreenWidth = 1820;
 
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
 
+        ScreenObjects = GetScreenGameObjects();
+
         MoveScreens(CurrentScreen);
+    }
+
+    GameObject[] GetScreenGameObjects()
+    {
+        List<GameObject> objects = new List<GameObject>();
+
+        foreach (Transform t in GetComponentInChildren<Transform>())
+        {
+            objects.Add(t.gameObject);
+            t.gameObject.SetActive(false);
+        }
+
+        return objects.ToArray();
     }
 
     void MoveScreens(Screens destination)
     {
+        SetScreenActive(CurrentScreen, false);
+
         CurrentScreen = destination;
 
         Vector3 newPosition = rectTransform.localPosition;
@@ -41,7 +60,14 @@ public class ScreenManager : MonoBehaviour
 
         GameManager.GM.ARSceneManager.AllowTracking(CurrentScreen == Screens.ARScreen);
         backgroundDim.color = (CurrentScreen == Screens.ARScreen) ? Color.clear : Color.Lerp(Color.clear, Color.black, dimAmount);
+
+        SetScreenActive(CurrentScreen, true);
     }
 
     public void MoveToScreen(int destination) => MoveScreens((Screens)destination);
+
+    void SetScreenActive(Screens screen, bool isActive)
+    {
+        ScreenObjects[(int)screen].SetActive(isActive);
+    }
 }
