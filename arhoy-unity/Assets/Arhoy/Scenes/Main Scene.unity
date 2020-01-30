@@ -2825,8 +2825,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f449ef6f3efff064898f3a8e7c3e7683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  narratorAudioSource: {fileID: 0}
+  narratorAudioSource: {fileID: 1541410359}
   useAudioClipLength: 1
+  master: {fileID: 24100000, guid: 5057f49fdbfe3aa4cb2adda9383ee1c2, type: 2}
+  snapshots:
+  - {fileID: 24500006, guid: 5057f49fdbfe3aa4cb2adda9383ee1c2, type: 2}
+  - {fileID: -5448867882747152194, guid: 5057f49fdbfe3aa4cb2adda9383ee1c2, type: 2}
+  - {fileID: -83908549327388367, guid: 5057f49fdbfe3aa4cb2adda9383ee1c2, type: 2}
+  - {fileID: -5228957412708403453, guid: 5057f49fdbfe3aa4cb2adda9383ee1c2, type: 2}
+  CurrentAudioSnapshot: 0
 --- !u!4 &783781622
 Transform:
   m_ObjectHideFlags: 0
@@ -3344,7 +3351,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 783781621}
+        m_MethodName: ToggleSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &1035425058
 GameObject:
@@ -4283,7 +4301,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 783781621}
+        m_MethodName: ToggleMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &1299559001
 GameObject:
