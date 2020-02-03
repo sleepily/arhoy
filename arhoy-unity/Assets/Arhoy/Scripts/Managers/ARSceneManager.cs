@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ARSceneManager : MonoBehaviour
 {
@@ -14,7 +15,19 @@ public class ARSceneManager : MonoBehaviour
     CharacterFile lastCharacter = null;
     public bool hasFocus { get; private set; } = false;
     public bool isPlaying { get; private set; } = false;
-    
+
+    private void Awake()
+    {
+        StartCoroutine(LoadARPageScene());
+    }
+
+    IEnumerator LoadARPageScene()
+    {
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+
+        yield return null;
+    }
+
     public void GainFocus(Page page)
     {
         if (!allowARTracking)

@@ -33,9 +33,9 @@ public class Page : MonoBehaviour
 
     private void Start()
     {
-        DisplayPageScene(false);
-
         characters = GetCharacters();
+
+        DisplayPageScene(false);
     }
 
     public void Found()
@@ -134,5 +134,8 @@ public class Page : MonoBehaviour
     {
         if (sceneParent)
             sceneParent.SetActive(isActive);
+
+        foreach (var character in characters)
+            character.gameObject.SetActive(isActive);
     }
 }
