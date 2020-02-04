@@ -59,7 +59,7 @@ public class ScreenManager : MonoBehaviour
         rectTransform.localPosition = newPosition;
 
         GameManager.GM.ARSceneManager.AllowTracking(CurrentScreen == Screens.ARScreen);
-        backgroundDim.color = (CurrentScreen == Screens.ARScreen) ? Color.clear : Color.Lerp(Color.clear, Color.black, dimAmount);
+        backgroundDim.color = (CurrentScreen == Screens.ARScreen) ? Color.clear : Color.Lerp(Color.clear, Color.white, dimAmount);
 
         SetScreenActive(CurrentScreen, true);
     }

@@ -49,3 +49,24 @@ TagManager:
   - name: UI
     uniqueID: 2614220841
     locked: 0
+  - name: Background 2
+    uniqueID: 1423837169
+    locked: 0
+  - name: Background 1
+    uniqueID: 689674049
+    locked: 0
+  - name: Props
+    uniqueID: 2978098703
+    locked: 0
+  - name: Foreground 3
+    uniqueID: 1506095341
+    locked: 0
+  - name: Foreground 2
+    uniqueID: 120777181
+    locked: 0
+  - name: Foreground 1
+    uniqueID: 131389645
+    locked: 0
+  - name: UI Top
+    uniqueID: 3603904917
+    locked: 0
