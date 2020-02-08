@@ -8,10 +8,7 @@ public class CharacterButtonManager : MonoBehaviour
 {
     List<CharacterButton> characterButtons;
 
-    private void Start()
-    {
-        GetButtons();
-    }
+    private void Start() => GetButtons();
 
     void GetButtons() => characterButtons = GetComponentsInChildren<CharacterButton>().ToList();
 
@@ -29,9 +26,6 @@ public class CharacterButtonManager : MonoBehaviour
             {
                 if (characterButton.Button)
                     characterButton.Button.interactable = isInteractable;
-
-
-                Debug.Log($"Setting {character}'s interactablity to {isInteractable}.");
 
                 return true;
             }

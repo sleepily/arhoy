@@ -6,12 +6,12 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField]
-    AudioSource narratorAudioSource;
+    AudioSource characterAudioSource;
 
     [SerializeField]
     bool useAudioClipLength = true;
 
-    public AudioSource NarratorAudioSource => narratorAudioSource;
+    public AudioSource CharacterAudioSource => characterAudioSource;
 
     public bool UseAudioClipLength => useAudioClipLength;
 
@@ -34,9 +34,12 @@ public class AudioManager : MonoBehaviour
     [HideInInspector]
     public AudioSnapshots CurrentAudioSnapshot;
 
-    public void PlayNarrator(AudioClip audioClip)
+    public void PlayAudio(AudioClip audioClip)
     {
-        NarratorAudioSource.PlayOneShot(audioClip);
+        if (characterAudioSource.isPlaying)
+            characterAudioSource.Stop();
+
+        CharacterAudioSource.PlayOneShot(audioClip);
     }
 
     public void ToggleMusic()

@@ -9,6 +9,8 @@ public class CharacterAnimation : MonoBehaviour
     int currentKey = 0;
     float lastKeyTime = 0f;
 
+    [SerializeField] public AudioClip audioClip;
+
     private void Start()
     {
         animationKeys = GetAnimationKeys();
@@ -23,6 +25,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         if (animationKeys.Count != 0)
             StartCoroutine(AnimationCoroutine());
+
+        GameManager.GM.AudioManager.PlayAudio(audioClip);
     }
 
     IEnumerator AnimationCoroutine()

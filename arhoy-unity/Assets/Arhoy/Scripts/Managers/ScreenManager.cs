@@ -20,8 +20,7 @@ public class ScreenManager : MonoBehaviour
     [Space]
 
     public Screens CurrentScreen;
-    public GameObject[] ScreenObjects;
-    public GameObject CurrentScreenObject;
+    GameObject[] ScreenObjects;
 
     [Range(600, 2400)]
     public int ReferenceScreenWidth = 1820;
@@ -58,11 +57,16 @@ public class ScreenManager : MonoBehaviour
         newPosition.x = (int)destination * ReferenceScreenWidth * -1;
         rectTransform.localPosition = newPosition;
 
-        GameManager.GM.ARSceneManager.AllowTracking(CurrentScreen == Screens.ARScreen);
-        backgroundDim.color = (CurrentScreen == Screens.ARScreen) ? Color.clear : Color.Lerp(Color.clear, Color.white, dimAmount);
+        ChangeTrackingPermissions();
+        ChangeBackgroundVisibility();
 
         SetScreenActive(CurrentScreen, true);
     }
+
+    void ChangeTrackingPermissions() => GameManager.GM.ARSceneManager.AllowTracking(CurrentScreen == Screens.ARScreen);
+
+    void ChangeBackgroundVisibility() =>
+        backgroundDim.color = (CurrentScreen == Screens.ARScreen) ? Color.clear : Color.Lerp(Color.clear, Color.white, dimAmount);
 
     public void MoveToScreen(int destination) => MoveScreens((Screens)destination);
 

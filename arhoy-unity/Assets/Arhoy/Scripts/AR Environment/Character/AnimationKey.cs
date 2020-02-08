@@ -37,7 +37,7 @@ public class AnimationKey : MonoBehaviour
         // Play Narrator Voice
         if (!activeCharacter)
         {
-            GameManager.GM.AudioManager.PlayNarrator(audioClip);
+            GameManager.GM.AudioManager.PlayAudio(audioClip);
 
         }
     }

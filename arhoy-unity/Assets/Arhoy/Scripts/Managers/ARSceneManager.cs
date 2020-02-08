@@ -38,22 +38,6 @@ public class ARSceneManager : MonoBehaviour
 
         hasFocus = true;
         currentPage = page;
-
-        /*
-        if (restoreAfterLostFocus)
-            if (lastPage == currentPage)
-            {
-                lastCharacter = activeCharacter;
-                // ContinueScene();
-                return;
-            }
-
-        if (restoreAfterLostFocus)
-        {
-            lastPage = currentPage;
-            lastCharacter = activeCharacter;
-        }
-        */
     }
 
     public void LoseFocus()
