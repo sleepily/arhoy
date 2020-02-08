@@ -99,8 +99,6 @@ public class Page : MonoBehaviour
         DisplayPageScene(false);
         GameManager.GM.ARSceneManager.LoseFocus();
 
-        // @todo Stop music and sounds
-
         GameManager.GM.CharacterButtonManager.SetAllButtonsInteractable(false);
     }
 

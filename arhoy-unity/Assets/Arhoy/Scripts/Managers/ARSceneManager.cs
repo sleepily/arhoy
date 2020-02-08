@@ -45,6 +45,8 @@ public class ARSceneManager : MonoBehaviour
         hasFocus = false;
         currentPage = null;
         currentCharacter = null;
+
+        GameManager.GM.AudioManager.StopCharacterVoice();
     }
 
     public void AllowTracking(bool isAllowed)

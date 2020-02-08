@@ -42,6 +42,11 @@ public class AudioManager : MonoBehaviour
         CharacterAudioSource.PlayOneShot(audioClip);
     }
 
+    public void StopCharacterVoice()
+    {
+        CharacterAudioSource.Stop();
+    }
+
     public void ToggleMusic()
     {
         musicIsMuted = !musicIsMuted;
